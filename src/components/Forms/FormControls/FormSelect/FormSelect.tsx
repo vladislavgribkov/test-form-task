@@ -29,7 +29,7 @@ const FormSelect = <T extends IOption>(
               getOptionLabel={(option) => (typeof option === 'string' ? option : option.name)}
               value={value}
               {...otherAutocompleteProps}
-              textFieldProps={textFieldProps}
+              textFieldProps={{ ...textFieldProps, error: !!(errors && errors[name]) }}
               handleValue={handleValue}
             />
           );

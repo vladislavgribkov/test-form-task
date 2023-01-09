@@ -2,6 +2,7 @@
   "name": "form-test-task",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gitname.github.io/test-form-task",
   "dependencies": {
     "@apollo/client": "^3.7.3",
     "@emotion/react": "^11.10.5",
@@ -44,6 +45,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "gh-pages": "^4.0.0",
     "husky": "^8.0.1",
     "i": "^0.3.7",
     "lint-staged": "^13.0.3",
@@ -58,7 +60,8 @@
     "prepare": "husky install",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx src --color",
     "codegen": "graphql-codegen --config codegen.ts",
-    "codegen-watch": "graphql-codegen --config codegen.ts --watch"
+    "codegen-watch": "graphql-codegen --config codegen.ts --watch",
+    "deploy": "gh-pages -d build"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
