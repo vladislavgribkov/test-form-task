@@ -1,11 +1,11 @@
-import React, { memo, useCallback, useEffect, useId, useMemo, useState } from 'react';
-import { Autocomplete, Button, Paper, TextField } from '@mui/material';
+import React, { memo, useCallback, useEffect, useState } from 'react';
+import { Autocomplete, AutocompleteValue, TextField } from '@mui/material';
 import { ICustomSelect, IOption } from '../../../types/ICustomSelect';
 import AddItemModal from '../../Modals/AddItemModal/AddItemModal';
 import Option from './Option/Option';
+import PaperComponent from './PaperComponent/PaperComponent';
 
 const CustomSelect = <T extends IOption>(props: ICustomSelect<T>) => {
-  const id = useId();
   const [open, setOpen] = useState<boolean>(false);
 
   const {
@@ -18,7 +18,6 @@ const CustomSelect = <T extends IOption>(props: ICustomSelect<T>) => {
     ...otherAutocompleteProps
   } = props;
   const [options, setOptions] = useState<T[]>([]);
-  const defaultValue = useMemo(() => (multiple ? [] : ''), [multiple]);
 
   useEffect(() => {
     if (defaultOptions) setOptions(defaultOptions);
@@ -53,53 +52,45 @@ const CustomSelect = <T extends IOption>(props: ICustomSelect<T>) => {
     [handleValue, value]
   );
 
+  const handleChange = useCallback(
+    (e: React.SyntheticEvent, newValue: AutocompleteValue<unknown, unknown, unknown, unknown>) => {
+      if (Array.isArray(newValue)) {
+        handleValue([...(newValue as T[])]);
+        return;
+      }
+      handleValue(newValue as T);
+    },
+    [handleValue]
+  );
+
   return (
     <>
       <Autocomplete
         id="custom-select"
         size="small"
-        {...otherAutocompleteProps}
         multiple={multiple}
-        openOnFocus
         disablePortal
         options={options}
-        value={value || defaultValue}
+        value={value}
         loading={loading}
-        onChange={(event, newValue) => {
-          if (Array.isArray(newValue)) {
-            handleValue([...(newValue as T[])]);
-            return;
-          }
-          handleValue(newValue as T);
-        }}
+        onChange={handleChange}
         disableCloseOnSelect
         renderInput={(params) => <TextField {...params} {...textFieldProps} />}
-        isOptionEqualToValue={(option, val) => option.id === val.id}
-        disableListWrap={false}
+        isOptionEqualToValue={(option, val) => option?.id === val?.id}
         PaperComponent={({ children }) => (
-          <Paper
-            onMouseDown={(e) => {
-              e.preventDefault();
-            }}
-          >
-            {loading ? null : (
-              <Button fullWidth onClick={() => setOpen(true)}>
-                Add item
-              </Button>
-            )}
-            {children}
-          </Paper>
+          <PaperComponent setOpen={setOpen} loading={loading} children={children} />
         )}
         renderOption={(prop, option) => {
           return (
             <Option
-              key={`${id}${option.id}`}
+              key={`${option.name}${option.id}`}
               option={option}
               removeOption={removeOption}
               optionProps={prop}
             />
           );
         }}
+        {...otherAutocompleteProps}
       />
       <AddItemModal open={open} setOpen={setOpen} addOption={addOption} />
     </>

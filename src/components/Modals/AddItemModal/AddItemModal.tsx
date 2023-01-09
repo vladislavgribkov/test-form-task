@@ -2,11 +2,7 @@ import CustomModal from '../../UI/CustomModal/CustomModal';
 import AddNewItemForm from '../../Forms/FormTemplates/AddNewItemForm/AddNewItemForm';
 import React, { FC, useCallback } from 'react';
 
-const AddItemModal: FC<{
-  open: boolean;
-  setOpen(open: boolean): void;
-  addOption(option: unknown): void;
-}> = ({ open, setOpen, addOption }) => {
+const AddItemModal: FC<IAddItemModal> = ({ open, setOpen, addOption }) => {
   const onClose = useCallback(() => {
     setOpen(false);
   }, [setOpen]);
@@ -19,3 +15,9 @@ const AddItemModal: FC<{
 };
 
 export default AddItemModal;
+
+interface IAddItemModal {
+  open: boolean;
+  setOpen(open: boolean): void;
+  addOption(option: unknown): void;
+}

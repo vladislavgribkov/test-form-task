@@ -10,6 +10,7 @@ export const MainFormValidationSchema = Yup.object({
 
 export const MainFormDefaultValues: IMainForm = {
   description: '',
+  company: '',
   positions: [],
   text: ''
 };

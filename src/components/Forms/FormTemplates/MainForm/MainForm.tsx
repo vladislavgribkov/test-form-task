@@ -26,7 +26,7 @@ const MainForm: FC = () => {
         <PositionSelect />
         <FormInput fullWidth name="text" label="Text" />
         <FormInput fullWidth name="description" label="Description" multiline rows={5} />
-        <Button variant="outlined" fullWidth type="submit">
+        <Button variant="contained" fullWidth type="submit">
           save
         </Button>
       </MainFormWrapper>

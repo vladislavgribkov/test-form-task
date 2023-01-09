@@ -29,7 +29,7 @@ const AddNewItemForm: FC<{ addOption(option: unknown): void }> = ({ addOption })
         }}
       >
         <FormInput name="name" />
-        <Button variant="outlined" fullWidth type="submit">
+        <Button variant="contained" fullWidth type="submit">
           add item
         </Button>
       </FormWrapper>

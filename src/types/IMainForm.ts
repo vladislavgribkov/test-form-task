@@ -1,7 +1,7 @@
 import { IOption } from './ICustomSelect';
 
 interface IMainForm {
-  company?: IOption;
+  company?: IOption | string;
   positions: IOption[];
   text: string;
   description: string;

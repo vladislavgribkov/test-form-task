@@ -8,7 +8,7 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <MainForm></MainForm>
+        <MainForm />
       </div>
     </ApolloProvider>
   );
